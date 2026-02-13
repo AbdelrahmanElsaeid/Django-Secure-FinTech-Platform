@@ -52,7 +52,7 @@ THIRD_PARTY_APPS = [
     
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = ['core_apps.user_auth', 'core_apps.user_profile', 'core_apps.common']
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 
@@ -71,7 +71,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(APPS_DIR.path('templates'))],
+        'DIRS': [str(APPS_DIR / 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

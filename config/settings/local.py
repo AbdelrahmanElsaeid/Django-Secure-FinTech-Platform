@@ -2,7 +2,7 @@
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 from os import path, getenv
 from dotenv import load_dotenv
-from .base import BASE_DIR
+from .base import *
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv('SECRET_KEY')
 
