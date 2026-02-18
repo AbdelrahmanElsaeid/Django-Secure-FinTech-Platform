@@ -23,3 +23,14 @@ EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = getenv('DEFAULT_FROM_EMAIL')
 DOMAIN = getenv('DOMAIN')
 MAX_UPLOAD_SIZE = 1024 * 1024 * 1
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000"
+]
+
+LOCKOUT_DURATION = timedelta(minutes=1)
+
+LOGGING_ATTEMPTS = 3
+
+OTP_EXPIRATION = timedelta(minutes=1)
