@@ -26,7 +26,7 @@ MAX_UPLOAD_SIZE = 1024 * 1024 * 1
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000"
+    "http://localhost:8080"
 ]
 
 LOCKOUT_DURATION = timedelta(minutes=1)
