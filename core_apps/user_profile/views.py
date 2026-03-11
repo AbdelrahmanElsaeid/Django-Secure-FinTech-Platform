@@ -93,7 +93,49 @@ class ProfileDetailAPIView(generics.RetrieveUpdateAPIView):
 
         try:
             serializer.is_valid(raise_exception=True)
-            
+            with transaction.atomic():
+                updated_instance = serializer.save()
+
+                if updated_instance.is_complete_with_next_of_kin():
+                    existing_account = BankAccount.objects.filter(
+                        user=request.user,
+                        currency=updated_instance.account_currency,
+                        account_type=updated_instance.account_type,
+                    ).first()
+
+                    if not existing_account:
+                        bank_account = create_bank_account(
+                            request.user,
+                            currency=updated_instance.account_currency,
+                            account_type=updated_instance.account_type,
+                        )
+                        message = (
+                            "Profile updated and new bank account created successfully. An email "
+                            "has been sent to you with further instructions"
+                        )
+                    else:
+                        message = (
+                            "Profile updated successfully. No new account created as one already "
+                            "exists for this currency and type."
+                        )
+                    return Response(
+                        {
+                            "message": message,
+                            "data": serializer.data,
+                        },
+                        status=status.HTTP_200_OK,
+                    )
+                else:
+                    return Response(
+                        {
+                            "message": "Profile updated successfully. Please complete all "
+                            "required fields and at least one next of kin to create a "
+                            "bank account.",
+                            "data": serializer.data,
+                        },
+                        status=status.HTTP_200_OK,
+                    )
+
         except serializers.ValidationError as e:
             return Response({"errors": e.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
