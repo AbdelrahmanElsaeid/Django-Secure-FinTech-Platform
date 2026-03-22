@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AccountVerificationView, DepositView, InitiateWithdrawalView, VerifyUsernameAndWithdrawAPIView
+from .views import AccountVerificationView, DepositView, InitiateTransferView, InitiateWithdrawalView, VerifyOTPView, VerifySecurityQuestionView, VerifyUsernameAndWithdrawAPIView
 
 urlpatterns = [
     path(
@@ -18,5 +18,14 @@ urlpatterns = [
         VerifyUsernameAndWithdrawAPIView.as_view(),
         name="verify_username_and_withdraw",
     ),
+    path(
+        "transfer/initiate/", InitiateTransferView.as_view(), name="initiate_transfer"
+    ),
+    path(
+        "transfer/verify-security-question/",
+        VerifySecurityQuestionView.as_view(),
+        name="verify_security_question",
+    ),
+    path("transfer/verify-otp/", VerifyOTPView.as_view(), name="verify_otp"),
     
 ]
