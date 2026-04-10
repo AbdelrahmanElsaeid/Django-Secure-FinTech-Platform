@@ -2,8 +2,10 @@
 .vscode
 .DS_Store
 staticfiles/
-.envs/*
+!.envs/*
 !.envs/.env.example
+!.envs/.env.production
+
 .idea/
 # Byte-compiled / optimized / DLL files
 __pycache__/
